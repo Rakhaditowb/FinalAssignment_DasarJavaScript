@@ -1,22 +1,51 @@
-// Gunakan fungsi di bawah ini untuk menghasilkan id yang unik
+// Gunakan fungsi ini untuk menghasilkan ID unik
 function generateUniqueId() {
   return `_${Math.random().toString(36).slice(2, 9)}`;
 }
 
-// TODO: buatlah variabel yang menampung data orders
-let orders;
+// Variabel yang menampung data pesanan
+let orders = [];
 
-// TODO: selesaikan fungsi addOrder
-function addOrder(customerName, items) {}
+// Fungsi untuk menambah pesanan baru
+function addOrder(customerName, items) {
+  const totalPrice = items.reduce((total, item) => total + item.price, 0);
+  const newOrder = {
+    id: generateUniqueId(),
+    customerName,
+    items,
+    totalPrice,
+    status: "Menunggu"
+  };
+  orders.push(newOrder);
+  return newOrder;
+}
 
-// TODO: selesaikan fungsi updateOrderStatus
-function updateOrderStatus(orderId, status) {}
+// Fungsi untuk memperbarui status pesanan
+function updateOrderStatus(orderId, status) {
+  const order = orders.find(order => order.id === orderId);
+  if (order) {
+    order.status = status;
+    return order;
+  }
+  return null;
+}
 
-// TODO: selesaikan fungsi calculateTotalRevenue dari order yang berstatus Selesai
-function calculateTotalRevenue() {}
+// Fungsi untuk menghitung total pendapatan dari pesanan yang berstatus "Selesai"
+function calculateTotalRevenue() {
+  return orders
+    .filter(order => order.status === "Selesai")
+    .reduce((total, order) => total + order.totalPrice, 0);
+}
 
-// TODO: selesaikan fungsi deleteOrder
-function deleteOrder(id) {}
+// Fungsi untuk menghapus pesanan berdasarkan ID
+function deleteOrder(id) {
+  const index = orders.findIndex(order => order.id === id);
+  if (index !== -1) {
+    orders.splice(index, 1);
+    return true;
+  }
+  return false;
+}
 
 export {
   orders,

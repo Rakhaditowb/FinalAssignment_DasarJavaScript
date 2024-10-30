@@ -11,9 +11,13 @@ console.log(
  */
 
 const numberForFibonacci = 10;
+const fibArray = [];
 console.log(`Deret Fibonacci hingga elemen ${numberForFibonacci} adalah:`);
 for (let i = 0; i <= numberForFibonacci; i++) {
-  console.log(fibonacci(i));
+  // console.log(fibonacci(i));
+
+  fibArray.push(fibonacci(i));
+  console.log(`[ ${fibArray.join(", ")} ]`);
 }
 
 /**
